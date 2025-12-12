@@ -58,8 +58,57 @@ export default function StudentPage() {
 
   return (
     <main className="page-root">
-      {/* TODO: seu JSX inteiro aqui, usando `student` */}
-      <div className="card-name">{student.name}</div>
+      <div className="phone-frame">
+        <header className="app-header">
+          <div className="app-header-logo">
+            <img src="/utfpr-logo.png" alt="UTFPR" />
+          </div>
+        </header>
+
+        <div className="app-content">
+          <div className="app-content-inner">
+            <section className="student-card">
+              <div className="card-top">
+                <img
+                  src="/brazil-coat.png"
+                  alt="Brasão da República Federativa do Brasil"
+                  className="coat"
+                />
+                <div className="card-top-title">
+                  <div className="card-top-title-line1">
+                    Ministério da Educação
+                  </div>
+                  <div className="card-top-title-line2">
+                    Universidade Tecnológica Federal do Paraná
+                  </div>
+                </div>
+              </div>
+
+              <div className="card-middle">
+                <div className="card-photo-wrapper">
+                  <img src={student.photo} alt="Foto do estudante" />
+                </div>
+              </div>
+
+              <div className="card-info">
+                <div className="card-name">{student.name}</div>
+                <div className="card-course">{student.courseTitle}</div>
+                <div className="card-details">
+                  {student.period}
+                  <br />
+                  {student.coefficient}
+                </div>
+              </div>
+
+              <div className="card-barcode">
+                <img src="/barcode.png" alt="Código de barras" />
+                <div className="card-code">{student.code}</div>
+                <div className="card-validity">{student.validity}</div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
