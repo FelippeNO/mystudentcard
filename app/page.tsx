@@ -39,7 +39,7 @@ const students: StudentData[] = [
     name: "AMANDA GABRIELLE DA SILVA SANTOS",
     courseTitle: "BACHARELADO EM ENGENHARIA DE SOFTWARE",
     period: "6º PERÍODO",
-    coefficient: "COEFICIENTE: 0.9083",
+    coefficient: "COEFICIENTE: 0.9042",
     code: "02372532",
     validity: `Validade: ${formattedDate}`,
     photo: "/student-photo2.jpg",
