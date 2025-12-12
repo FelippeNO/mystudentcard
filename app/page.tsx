@@ -1,4 +1,8 @@
-// app/page.tsx
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+
 interface StudentData {
   name: string;
   courseTitle: string;
@@ -6,6 +10,7 @@ interface StudentData {
   coefficient: string;
   code: string;
   validity: string;
+  photo: string;
 }
 
 const todayDate = new Date();
@@ -19,16 +24,38 @@ const formattedDate = date6MonthsLater.toLocaleDateString("pt-BR", {
   month: "2-digit",
   year: "numeric",
 });
-const student: StudentData = {
-  name: "FELIPPE NEGRAO DE OLIVEIRA",
-  courseTitle: "BACHARELADO EM ENGENHARIA DE SOFTWARE",
-  period: "6º PERÍODO",
-  coefficient: "COEFICIENTE: 0.9083",
-  code: "02372517",
-  validity: `Validade: ${formattedDate}`,
-};
+
+const students: StudentData[] = [
+  {
+    name: "FELIPPE NEGRAO DE OLIVEIRA",
+    courseTitle: "BACHARELADO EM ENGENHARIA DE SOFTWARE",
+    period: "6º PERÍODO",
+    coefficient: "COEFICIENTE: 0.9083",
+    code: "02372517",
+    validity: `Validade: ${formattedDate}`,
+    photo: "/student-photo.png",
+  },
+  {
+    name: "AMANDA GABRIELLE DA SILVA SANTOS",
+    courseTitle: "BACHARELADO EM ENGENHARIA DE SOFTWARE",
+    period: "6º PERÍODO",
+    coefficient: "COEFICIENTE: 0.9083",
+    code: "02372532",
+    validity: `Validade: ${formattedDate}`,
+    photo: "/student-photo2.jpg",
+  },
+];
+
+const DEFAULT_CODE = "02372517";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+
+  const student = useMemo(() => {
+    const code = searchParams.get("student") || DEFAULT_CODE;
+    return students.find((s) => s.code === code) ?? students[0];
+  }, [searchParams]);
+
   return (
     <main className="page-root">
       <div className="phone-frame">
@@ -37,11 +64,10 @@ export default function Home() {
             <img src="/utfpr-logo.png" alt="UTFPR" />
           </div>
         </header>
-        {/* Conteúdo amarelo + cartão */}
+
         <div className="app-content">
           <div className="app-content-inner">
             <section className="student-card">
-              {/* Topo do cartão */}
               <div className="card-top">
                 <img
                   src="/brazil-coat.png"
@@ -58,14 +84,12 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Foto + ícone */}
               <div className="card-middle">
                 <div className="card-photo-wrapper">
-                  <img src="/student-photo.png" alt="Foto do estudante" />
+                  <img src={student.photo} alt="Foto do estudante" />
                 </div>
               </div>
 
-              {/* Informações do aluno */}
               <div className="card-info">
                 <div className="card-name">{student.name}</div>
                 <div className="card-course">{student.courseTitle}</div>
@@ -76,7 +100,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Código de barras e validade */}
               <div className="card-barcode">
                 <img src="/barcode.png" alt="Código de barras" />
                 <div className="card-code">{student.code}</div>
